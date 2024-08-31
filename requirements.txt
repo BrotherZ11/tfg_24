@@ -1,0 +1,8 @@
+youtube-dl
+yt-dlp
+pytube
+ffmpeg-python
+librosa
+spleeter
+midiutil
+music21
