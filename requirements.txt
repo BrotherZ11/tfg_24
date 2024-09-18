@@ -1,3 +1,4 @@
+magenta
 yt-dlp
 pytube
 ffmpeg-python
@@ -5,4 +6,4 @@ librosa
 spleeter
 midiutil
 music21
-numpy=1.26.4
+numpy==1.21.6
