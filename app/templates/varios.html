@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Transcriptor de Música</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Transcriptor Musical</h1>
+    <form action="/transcribir" method="post" enctype="multipart/form-data">
+      <!-- Selector de modelos -->
+      <label for="modelo">Seleccionar modelo de transcripción:</label>
+      <select id="modelo" name="modelo">
+        <option value="mt3">MT3</option>
+        <option value="onsets_and_frames">Onsets and Frames</option>
+      </select>
+      <br /><br />
+
+      <!-- Entrada para enlace de YouTube -->
+      <label for="youtube_url">Enlace de YouTube:</label>
+      <input type="text" id="youtube_url" name="youtube_url" />
+      <br /><br />
+
+      <!-- Subida de archivo MP3 -->
+      <label for="audio">Subir archivo MP3:</label>
+      <input type="file" id="audio" name="audio" />
+      <br /><br />
+
+      <!-- Botón de envío -->
+      <button type="submit">Transcribir</button>
+    </form>
+  </body>
+</html>
