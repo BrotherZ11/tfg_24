@@ -11,6 +11,9 @@ from note_seq.protobuf import music_pb2
 import tensorflow._api.v2.compat.v1 as tf
 import six
 
+# Desactivar las características de TensorFlow 2 (ya que usamos TensorFlow 1)
+tf.disable_v2_behavior()
+
 MODEL_DIR = './train'  # Define la ruta del modelo aquí
 CHECKPOINT_PATH = './train'  # Define la ruta del checkpoint aquí
 
@@ -35,7 +38,7 @@ def transcribe_onsets_frames(audio_file_path):
     config = configs.CONFIG_MAP['onsets_frames']
     hparams = config.hparams
     hparams.batch_size = 1
-    hparams.truncated_length_secs = 0
+    hparams.use_cudnn = False  # CUDNN puede causar problemas en algunos sistemas, así que lo desactivamos
 
     with tf.Graph().as_default():
         examples = tf.placeholder(tf.string, [None])

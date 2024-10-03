@@ -32,6 +32,33 @@
 
         <button type="submit">Procesar Canción</button>
       </form>
+      <!-- Mostrar el enlace de descarga si el archivo MIDI ha sido creado -->
+      {% if midi_file %}
+      <div class="result">
+        <p>
+          Transcripción completada.
+          <a href="/download/{{ midi_file }}">Descargar archivo MIDI</a>
+        </p>
+      </div>
+      {% endif %}
+      <!-- Mostrar el PDF si ha sido creado -->
+      {% if pdf_file %}
+      <div class="result">
+        <h2>Partitura Generada:</h2>
+        <embed
+          src="/view_pdf/{{ pdf_file }}"
+          type="application/pdf"
+          width="600"
+          height="800"
+        />
+        <p>
+          <a href="/view_pdf/{{ pdf_file }}" target="_blank">Ver archivo PDF</a>
+        </p>
+        <p>
+          <a href="/view_pdf/{{ pdf_file }}" download>Descargar archivo PDF</a>
+        </p>
+      </div>
+      {% endif %}
     </div>
   </body>
 </html>
