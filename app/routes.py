@@ -25,13 +25,14 @@ def transcribir():
         audio = request.files['audio_file']
         audio_path = os.path.join(UPLOAD_FOLDER, audio.filename)
         audio.save(audio_path)
+        
 
     elif 'youtube_url' in request.form and request.form['youtube_url'].strip() != '':
         url = request.form['youtube_url']
         audio_path = download_audio(url)
 
     # Convertir el MP3 descargado a WAV
-    if audio_path.endswith('.mp3'):
+    if audio_path.endswith('.mp3') or audio_path.endswith('.wav'):
         wav_path = convert_to_wav(audio_path)
     else:
         return "Error al descargar el archivo de YouTube", 500

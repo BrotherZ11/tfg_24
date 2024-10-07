@@ -72,6 +72,7 @@ def clean_midi(midi_path):
                 
                 # Si hay una nota en la misma posición que el silencio, eliminar el silencio
                 if overlapping_notes:
+                    part.remove(overlapping_notes)
                     part.remove(element)
 
     return score

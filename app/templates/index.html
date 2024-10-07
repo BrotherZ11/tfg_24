@@ -11,54 +11,77 @@
   </head>
   <body>
     <div class="container">
-      <h1>Generador de Partituras</h1>
-      <form method="POST" enctype="multipart/form-data" action="/transcribir">
-        <div class="form-group">
-          <label for="youtube_url">Ingresa un enlace de YouTube:</label>
-          <input
-            type="text"
-            id="youtube_url"
-            name="youtube_url"
-            placeholder="https://www.youtube.com/..."
+      <header>
+        <h1>Generador de Partituras</h1>
+        <p>Convierte tus canciones en partituras fácilmente.</p>
+      </header>
+
+      <main>
+        <form method="POST" enctype="multipart/form-data" action="/transcribir">
+          <div class="form-group">
+            <label for="youtube_url">Ingresa un enlace de YouTube:</label>
+            <input
+              type="url"
+              id="youtube_url"
+              name="youtube_url"
+              placeholder="https://www.youtube.com/..."
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="audio_file"
+              >O carga un archivo de audio (MP3 o WAV):</label
+            >
+            <input
+              type="file"
+              id="audio_file"
+              name="audio_file"
+              accept=".mp3,.wav"
+            />
+          </div>
+
+          <button type="submit" class="btn-primary">Procesar Canción</button>
+        </form>
+
+        <!-- Mostrar el enlace de descarga si el archivo MIDI ha sido creado -->
+        {% if midi_file %}
+        <div class="result">
+          <p>
+            Transcripción completada.
+            <a href="/download/{{ midi_file }}" class="btn-link"
+              >Descargar archivo MIDI</a
+            >
+          </p>
+        </div>
+        {% endif %}
+
+        <!-- Mostrar el PDF si ha sido creado -->
+        {% if pdf_file %}
+        <div class="result">
+          <h2>Partitura Generada:</h2>
+          <embed
+            src="/view_pdf/{{ pdf_file }}"
+            type="application/pdf"
+            width="100%"
+            height="600"
           />
+          <div class="result-links">
+            <a href="/view_pdf/{{ pdf_file }}" target="_blank" class="btn-link"
+              >Ver archivo PDF</a
+            >
+            <a href="/view_pdf/{{ pdf_file }}" download class="btn-link"
+              >Descargar archivo PDF</a
+            >
+          </div>
         </div>
+        {% endif %}
+      </main>
 
-        <div class="form-group">
-          <label for="audio_file"
-            >O carga un archivo de audio (MP3 o WAV):</label
-          >
-          <input type="file" id="audio_file" name="audio_file" />
-        </div>
-
-        <button type="submit">Procesar Canción</button>
-      </form>
-      <!-- Mostrar el enlace de descarga si el archivo MIDI ha sido creado -->
-      {% if midi_file %}
-      <div class="result">
+      <footer>
         <p>
-          Transcripción completada.
-          <a href="/download/{{ midi_file }}">Descargar archivo MIDI</a>
+          &copy; 2024 Generador de Partituras. Todos los derechos reservados.
         </p>
-      </div>
-      {% endif %}
-      <!-- Mostrar el PDF si ha sido creado -->
-      {% if pdf_file %}
-      <div class="result">
-        <h2>Partitura Generada:</h2>
-        <embed
-          src="/view_pdf/{{ pdf_file }}"
-          type="application/pdf"
-          width="600"
-          height="800"
-        />
-        <p>
-          <a href="/view_pdf/{{ pdf_file }}" target="_blank">Ver archivo PDF</a>
-        </p>
-        <p>
-          <a href="/view_pdf/{{ pdf_file }}" download>Descargar archivo PDF</a>
-        </p>
-      </div>
-      {% endif %}
+      </footer>
     </div>
   </body>
 </html>
